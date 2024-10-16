@@ -19,9 +19,9 @@ app.get("/" , (req,  res) =>{
     res.send("Hello, World!")
 })
 
-app.set("/owners" , OwnersRouter)
-app.set("/users" , UsersRouter)
-app.set("/products" , ProductsRouter)
+app.use("/owners" , OwnersRouter)
+app.use("/users" , UsersRouter)
+app.use("/products" , ProductsRouter)
 
 
 app.listen(3000 ,  () =>{
