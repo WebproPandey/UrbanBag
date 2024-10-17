@@ -16,14 +16,14 @@ module.exports.registerUser =   async (req, res) => {
       const salt = await bcrypt.genSalt(10);
       const hash = await bcrypt.hash(password, salt);
       
-      let utilsser = await usermodel.create({
+       user = await usermodel.create({
           fullname,
           email,
           password: hash
       });
       let token = generateToken(user);
       res.cookie("token", token);
-      res.render("shop");
+      res.redirect("/shop");
 
     } catch (error) {
       req.flash("error" , "something is wrong"); 
@@ -45,7 +45,7 @@ module.exports.loginUser = async  (req, res) =>{
  if(result){
    let token =  generateToken(user)
    res.cookie("token" ,token)
-   res.render("shop") 
+   res.redirect("/shop") 
   }
   else{
     req.flash("error" , "Email  or passowrd is Wrong")

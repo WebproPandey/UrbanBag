@@ -1,7 +1,7 @@
 const  mongoose = require("mongoose")
 const productschema = mongoose.Schema({
    name:String,
-   image:String,
+   image:Buffer,
    price:Number,
    discount:{
     type: Number,
