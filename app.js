@@ -2,6 +2,8 @@ let  express = require("express")
 let app =  express()
 
 const  cookieParser =  require("cookie-parser")
+const  flash =  require("connect-flash")
+const  expressSession =  require("express-session")
 const path =  require("path")
 let db  =  require("./config/mongoose-connection")
 let IndexRouter =  require("./routes/indexRoute")
@@ -14,6 +16,13 @@ require("dotenv").config()
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(express.static(path.join(__dirname,"public")))
+app.use(cookieParser())
+app.use(expressSession({
+    resave:false,
+    saveUninitialized:false,
+    secret:process.env.Express_SESSION_SECRET,
+}))
+app.use(flash())
 app.set("view engine" , "ejs")
 
 
