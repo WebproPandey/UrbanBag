@@ -1,6 +1,14 @@
 <%- include('./partials/header') %>
-<div class="w-full h-screen flex flex-col md:flex-row items-start px-4 md:px-20 py-20 font-sans">
-    <div class="w-full md:w-[25%] flex h-auto md:h-screen flex-col items-start">
+<div class="w-full h-screen flex flex-col md:flex-row items-start px-4 md:px-10 py-20 font-sans">
+    <% if(success.length > 0) { %>
+        <div class="absolute top-10 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-500">
+            <span class="inline-block mt-1 mb-1 text-white">
+               <%= success  %>
+           </span>
+       </div>
+   <% }  %>
+
+    <div class="w-full md:w-[20%] flex h-auto md:h-screen flex-col items-start">
         <div class="flex items-center gap-2">
             <h3>sort by</h3>
             <form action="/shop">
@@ -21,10 +29,10 @@
             <a class="block w-fit mb-2" href="">Discount</a>
         </div>
     </div>
-    <div class="w-full md:w-[75%] flex flex-col gap-5 h-auto md:h-screen">
-        <div class="flex flex-wrap items-start gap-5">
+    <div class="w-full md:w-[80%] flex flex-col gap-5 h-auto md:h-screen">
+        <div class="flex flex-wrap items-start justify-start gap-4 md:pl-4">
             <% products.forEach((product) =>{ %>
-                <div class="w-full sm:w-1/2 md:w-60">
+                <div class="w-full sm:w-1/2 md:w-[23%]">
                     <div class="w-full h-52 flex items-center justify-center bg-[<%=product.bgcolor %>]">
                         <img class="h-full" src="data:image/jpeg;base64,<%= product.image.toString('base64') %>" alt="">
                     </div>
