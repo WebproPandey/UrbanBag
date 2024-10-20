@@ -17,12 +17,13 @@ router.get("/shop"  , isLoggedin,  async ( req ,res) =>{
 })
 router.get("/cart", isLoggedin, async (req, res) => {
     let user = await userModel.findOne({ email: req.user.email }).populate("cart");
-    console.log(user);
-    let bill = user.cart.reduce((total, item) => {
-      console.log("item price"   ,( Number( item.price) -20 + Number (item.disccount)));
-      
-    },20); 
-    res.render("cart", { user ,bill});
+    
+    let bill = 0; 
+    if (user.cart.length > 0) {
+        bill = Number(user.cart[0].price) - 20 + Number(user.cart[0].discount);
+    }
+    
+    res.render("cart", { user, bill });
 });
 router.get("/addtocart/:productid"  , isLoggedin ,  async ( req ,res) =>{
     
@@ -32,6 +33,7 @@ router.get("/addtocart/:productid"  , isLoggedin ,  async ( req ,res) =>{
     await  user.save()
     req.flash("success" , "Added to cart")
     res.redirect("/shop")
+    
 
    }
    catch(error){
