@@ -42,7 +42,18 @@ router.get("/addtocart/:productid"  , isLoggedin ,  async ( req ,res) =>{
     
    }
 })
- 
+router.post("/removefromcart/:productid", isLoggedin, async (req, res) => {
+  try {
+      let user = await userModel.findOne({ email: req.user.email });
+      user.cart = user.cart.filter(item => item.toString() !== req.params.productid);
+      await user.save();
+      req.flash("success", "Removed from cart");
+      res.redirect("/cart");
+  } catch (error) {
+      console.log(error.message);
+      res.redirect("/cart");
+  }
+}); 
 
 router.get("/logout" , isLoggedin ,  async ( req ,res) =>{ 
      res.render("shop" ,{products})
